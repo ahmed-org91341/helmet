@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+### Fixed
+
+- `X-DNS-Prefetch-Control`: throw if `allow` is not a boolean, instead of treating values like `"false"` as truthy
+
 ## 8.3.0 - 2026-07-11
 
 ### Changed
