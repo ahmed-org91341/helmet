@@ -1,3 +1,4 @@
+import assert from "node:assert/strict";
 import { describe, it } from "node:test";
 import xDnsPrefetchControl from "../middlewares/x-dns-prefetch-control";
 import { check } from "./helpers";
@@ -21,5 +22,13 @@ describe("X-DNS-Prefetch-Control middleware", () => {
     await check(xDnsPrefetchControl({ allow: true }), {
       "x-dns-prefetch-control": "on",
     });
+  });
+
+  it("throws when allow is not a boolean", () => {
+    for (const allow of ["false", "true", 1, null]) {
+      assert.throws(() => xDnsPrefetchControl({ allow: allow as any }), {
+        message: /^X-DNS-Prefetch-Control received an invalid allow /,
+      });
+    }
   });
 });
